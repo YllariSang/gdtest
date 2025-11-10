@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://b43ohjudji5mr"]
+
+[ext_resource type="Texture2D" uid="uid://do513tud6u8m1" path="res://Art/Menda-Sprite.png" id="1_kl64v"]
+[ext_resource type="Script" uid="uid://kd5gbx25ppqw" path="res://Script/Mendialogue.gd" id="2_kl64v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pxo2"]
+atlas = ExtResource("1_kl64v")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hw1c"]
+atlas = ExtResource("1_kl64v")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0lbkj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pxo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hw1c")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnvrw"]
+size = Vector2(13, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
+size = Vector2(23, 47)
+
+[node name="Menda" type="AnimatedSprite2D"]
+light_mask = 2
+visibility_layer = 2
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_0lbkj")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.92353123
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visibility_layer = 2
+position = Vector2(17, 42)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-17.5, -30)
+shape = SubResource("RectangleShape2D_nnvrw")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("2_kl64v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(-0.5, 12.5)
+shape = SubResource("RectangleShape2D_area")
