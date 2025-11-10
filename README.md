@@ -5,5 +5,3 @@ GODOT GAME ENGINE TEST RUN
 -MOVEMENT
 
 -DIALOGUE SYSTEM
-
-That's pretty much about it
