@@ -1,7 +1,9 @@
 GODOT GAME ENGINE TEST RUN
   
 -SPRITES
+
 -MOVEMENT
+
 -DIALOGUE SYSTEM
 
 That's pretty much about it
