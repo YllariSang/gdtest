@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Script/combatant.gd" id=1]
+[ext_resource type="Script" path="res://Script/combat_manager.gd" id=2]
+
+[node name="Combat" type="Node2D"]
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource(1)
+position = Vector2(100, 200)
+unit_name = "Player"
+max_hp = 100
+attack_power = 20
+
+[node name="Enemy" type="Node2D" parent="."]
+script = ExtResource(1)
+position = Vector2(300, 200)
+unit_name = "Enemy"
+max_hp = 60
+attack_power = 12
+
+[node name="CombatManager" type="Node" parent="."]
+script = ExtResource(2)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Info" type="Label" parent="UI"]
+text = "Combat: idle"
+margin_left = 10.0
+margin_top = 8.0
+
+[node name="PlayerHP" type="Label" parent="UI"]
+text = "Player HP: 100"
+position = Vector2(10, 28)
+
+[node name="EnemyHP" type="Label" parent="UI"]
+text = "Enemy HP: 60"
+position = Vector2(10, 50)
+
+[node name="AttackButton" type="Button" parent="UI"]
+text = "Attack"
+position = Vector2(10, 80)
+
+[node name="StartButton" type="Button" parent="UI"]
+text = "Start Combat"
+position = Vector2(10, 110)

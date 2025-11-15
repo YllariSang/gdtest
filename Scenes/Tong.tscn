@@ -32,6 +32,7 @@ position = Vector2(-0.5, 15)
 shape = SubResource("RectangleShape2D_area")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(-0.49999976, 8.187495)
 scale = Vector2(0.018055556, 0.022194615)
 texture = ExtResource("2_ext47")

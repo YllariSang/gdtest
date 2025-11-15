@@ -46,7 +46,8 @@ sources/0 = SubResource("TileSetAtlasSource_wowpa")
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 
-[node name="Trees" type="Node" parent="."]
+[node name="Trees" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Tree3" parent="Trees" instance=ExtResource("3_3dryh")]
 light_mask = 1
@@ -87,7 +88,7 @@ tile_set = SubResource("TileSet_i6g32")
 
 [node name="Dialogue" parent="." instance=ExtResource("4_dialogue")]
 
-[node name="Player" parent="." instance=ExtResource("3_wrm1d")]
+[node name="Player" parent="Trees" instance=ExtResource("3_wrm1d")]
 position = Vector2(368, 203)
 
 [node name="Menda2" parent="." instance=ExtResource("6_i6g32")]
