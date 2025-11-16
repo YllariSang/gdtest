@@ -5,8 +5,44 @@ extends CharacterBody2D
 
 
 var last_direction: String = "down"  # default idle direction
+var locked: bool = false
+
+func set_locked(value: bool) -> void:
+	locked = value
+	if locked:
+		velocity = Vector2.ZERO
+		anim_sprite.play("idle_" + last_direction)
+
+func set_facing_towards(target_global: Vector2) -> void:
+	var dir = target_global - global_position
+	if dir.length() == 0:
+		return
+	# choose dominant axis
+	if abs(dir.x) > abs(dir.y):
+		if dir.x > 0:
+			last_direction = "right"
+		else:
+			last_direction = "left"
+	else:
+		if dir.y > 0:
+			last_direction = "down"
+		else:
+			last_direction = "up"
+	anim_sprite.play("idle_" + last_direction)
 
 func _physics_process(_delta: float) -> void:
+	# If a Combat scene is present as a child of the current scene root, disable movement
+	var root = get_tree().current_scene
+	if root and root.has_node("Combat"):
+		return
+
+	# If locked by dialogue or other systems, keep showing idle but prevent movement
+	if locked:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		anim_sprite.play("idle_" + last_direction)
+		return
+
 	var direction := Vector2.ZERO
 
 	# Input

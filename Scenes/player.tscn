@@ -229,24 +229,21 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xuaoq"]
-size = Vector2(13, 5)
+size = Vector2(13, 4.5)
 
 [node name="Player" type="CharacterBody2D"]
-z_index = 1
+z_index = 0
 collision_layer = 2
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-light_mask = 2
-y_sort_enabled = true
-position = Vector2(1, -16)
 sprite_frames = SubResource("SpriteFrames_ypfnu")
 animation = &"walk_right"
 autoplay = "idle_down"
 frame_progress = 0.003793492
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(-1.5, 13.75)
 shape = SubResource("RectangleShape2D_xuaoq")
 
 [node name="Camera2D" type="Camera2D" parent="."]

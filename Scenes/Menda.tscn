@@ -32,9 +32,6 @@ size = Vector2(13, 8)
 size = Vector2(23, 47)
 
 [node name="Menda" type="AnimatedSprite2D"]
-light_mask = 2
-visibility_layer = 2
-y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_0lbkj")
 animation = &"idle"
 autoplay = "idle"

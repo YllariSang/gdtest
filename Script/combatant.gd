@@ -10,20 +10,20 @@ signal died()
 var hp: int = 0
 
 func _ready() -> void:
-    hp = max_hp
-    emit_signal("hp_changed", hp)
+	hp = max_hp
+	emit_signal("hp_changed", hp)
 
 func is_alive() -> bool:
-    return hp > 0
+	return hp > 0
 
 func take_damage(amount: int) -> void:
-    hp = max(0, hp - amount)
-    emit_signal("hp_changed", hp)
-    if hp == 0:
-        emit_signal("died")
+	hp = max(0, hp - amount)
+	emit_signal("hp_changed", hp)
+	if hp == 0:
+		emit_signal("died")
 
 func perform_attack(target: Node) -> void:
-    if not is_alive():
-        return
-    if target and target.has_method("take_damage"):
-        target.take_damage(attack_power)
+	if not is_alive():
+		return
+	if target and target.has_method("take_damage"):
+		target.take_damage(attack_power)

@@ -1,46 +1,87 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://d3ts7tsc03a61"]
 
-[ext_resource type="Script" path="res://Script/combatant.gd" id=1]
-[ext_resource type="Script" path="res://Script/combat_manager.gd" id=2]
+[ext_resource type="Script" uid="uid://duyshpvhg3s0y" path="res://Script/combatant.gd" id="1"]
+[ext_resource type="Script" uid="uid://n8a507urfq0l" path="res://Script/combat_manager.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://dt7pjvr3sjy6d" path="res://Art/Petinet-Sprite.png" id="3_0dhp0"]
+[ext_resource type="Texture2D" uid="uid://otl1pueejstu" path="res://Art/Pioawnndnaw.jpg" id="3_jr68y"]
+[ext_resource type="PackedScene" uid="uid://cirhxe137jjvy" path="res://Scenes/Tong.tscn" id="4_0dhp0"]
 
 [node name="Combat" type="Node2D"]
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(580.25, 326.5)
+scale = Vector2(4.46139, 3.3453608)
+texture = ExtResource("3_jr68y")
+
 [node name="Player" type="Node2D" parent="."]
-script = ExtResource(1)
-position = Vector2(100, 200)
+position = Vector2(331.00003, 442)
+scale = Vector2(5.8692913, 5.8403006)
+script = ExtResource("1")
 unit_name = "Player"
-max_hp = 100
 attack_power = 20
 
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("3_0dhp0")
+hframes = 8
+vframes = 8
+
 [node name="Enemy" type="Node2D" parent="."]
-script = ExtResource(1)
-position = Vector2(300, 200)
+position = Vector2(851, 449)
+scale = Vector2(0.5029076, 0.29243696)
+script = ExtResource("1")
 unit_name = "Enemy"
 max_hp = 60
 attack_power = 12
 
+[node name="Menda" parent="Enemy" instance=ExtResource("4_0dhp0")]
+scale = Vector2(84.23379, 29.42946)
+
 [node name="CombatManager" type="Node" parent="."]
-script = ExtResource(2)
+script = ExtResource("2")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Info" type="Label" parent="UI"]
 text = "Combat: idle"
-margin_left = 10.0
-margin_top = 8.0
 
 [node name="PlayerHP" type="Label" parent="UI"]
+offset_left = 10.0
+offset_top = 28.0
+offset_right = 10.0
+offset_bottom = 28.0
 text = "Player HP: 100"
-position = Vector2(10, 28)
 
 [node name="EnemyHP" type="Label" parent="UI"]
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 10.0
+offset_bottom = 50.0
 text = "Enemy HP: 60"
-position = Vector2(10, 50)
 
 [node name="AttackButton" type="Button" parent="UI"]
+offset_left = 10.0
+offset_top = 80.0
+offset_right = 10.0
+offset_bottom = 80.0
 text = "Attack"
-position = Vector2(10, 80)
+
+[node name="SkillButton" type="Button" parent="UI"]
+offset_left = 90.0
+offset_top = 80.0
+offset_right = 90.0
+offset_bottom = 80.0
+text = "Skill"
+
+[node name="EndTurn" type="Button" parent="UI"]
+offset_left = 170.0
+offset_top = 80.0
+offset_right = 170.0
+offset_bottom = 80.0
+text = "End Turn"
 
 [node name="StartButton" type="Button" parent="UI"]
+offset_left = 10.0
+offset_top = 110.0
+offset_right = 10.0
+offset_bottom = 110.0
 text = "Start Combat"
-position = Vector2(10, 110)

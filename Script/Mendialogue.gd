@@ -9,6 +9,9 @@ extends Area2D
     "BRANCH:How do I leave this place?|...|You must be dull huh?"
 ]
 
+@export var post_dialogue_lines: Array = []
+@export var post_dialogue_map: Dictionary = {}
+
 var _player_nearby: bool = false
 var _current_branch: String = ""
 
@@ -50,6 +53,6 @@ func _process(_delta: float) -> void:
 			if dlg and dlg.has_method("start_dialogue"):
 				# Only start a new dialogue if one is not already active
 				if not dlg.active:
-					dlg.start_dialogue(dialogue_lines)
+					dlg.start_dialogue(dialogue_lines, self)
 				else:
 					print("[TreeInteraction] dialogue already active; ignoring start request")

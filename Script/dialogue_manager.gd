@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal choice_made(choice: String)
+signal dialogue_finished()
 
 @onready var panel: Panel = $Panel
 @onready var label: Label = $Panel/VBoxContainer/Label
@@ -26,7 +27,7 @@ func _ready() -> void:
 	# No global pause; we'll disable player physics while dialogue is active
 	panel.visible = false
 
-func start_dialogue(lines: Array) -> void:
+func start_dialogue(lines: Array, focus_target: Node = null) -> void:
 	
 	if lines.size() == 0:
 		return
@@ -48,16 +49,19 @@ func start_dialogue(lines: Array) -> void:
 	_show_current()
 	# hide any on-screen prompt while in dialogue
 	hide_prompt()
-	# Disable the first CharacterBody2D we find in the current scene so the player can't move during dialogue
+	# Disable the player movement by calling `set_locked(true)` on the player
 	var root = get_tree().current_scene
 	_player = null
 	if root:
-		for child in root.get_children():
-			if child is CharacterBody2D:
-				_player = child
-				break
+		_player = _find_player(root)
 	if _player:
-		_player.set_physics_process(false)
+		if _player.has_method("set_locked"):
+			_player.set_locked(true)
+		else:
+			_player.set_physics_process(false)
+		# If the caller provided a focus target, attempt to make the player face it
+		if focus_target and _player.has_method("set_facing_towards") and focus_target is Node2D:
+			_player.set_facing_towards(focus_target.global_position)
 
 func _show_current() -> void:
 	# Clear previous choices
@@ -214,7 +218,25 @@ func _end_dialogue() -> void:
 	_current_branch = ""
 	_choices.clear()
 	_branches.clear()
-	# Re-enable player physics
+	# Re-enable player movement (unlock)
 	if _player:
-		_player.set_physics_process(true)
+		if _player.has_method("set_locked"):
+			_player.set_locked(false)
+		else:
+			_player.set_physics_process(true)
 		_player = null
+
+	# Notify listeners that dialogue finished
+	emit_signal("dialogue_finished")
+
+func _find_player(root: Node) -> Node:
+	if not root:
+		return null
+	if root is CharacterBody2D:
+		return root
+	for child in root.get_children():
+		if child is Node:
+			var found = _find_player(child)
+			if found:
+				return found
+	return null
